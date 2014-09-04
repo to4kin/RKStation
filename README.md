@@ -41,26 +41,3 @@ Remote maintenance R-Keeper for DOS
 6.	Подготовить %BUNDLE%.zip содержащий DBUPDATE.BAT, FTPD.BAT, GHOST.BAT, GO.BAT, MTCP.BAT, RKUPDATE.BAT, cfile, ftpasswd
 7.	Подготовить %CRC32% содержащий файлы %BUNDLE%.c32, %RKUPDF%.c32 и %RKTYPE%.c32 с CRC32 соответствующих ZIP архивов
 8.	Поместить %BUNDLE%.zip, %RKUPDF%.zip, %RKTYPE%.zip и %CRC32% на %SERVER%
-
-Пример конфигурационных файлов
-==============================
-
-CFILE
-# DOS station startup control file
-#
-# FORMAT: unit  type  dbupdate	state	action
-#
-# TYPE: COFFEE | PUB | MAGAZ
-# DBUPDATE: YES | NO
-# STATE: RK6 | FTPD | UPDATE | GHOST | LINUX
-# ACTION: CONTINUE | REBOOT | SHUTDOWN
-#
-# DEFAULT action CONTINUE
-
-UNIT01	PUB	    YES	UPDATE	SHUTDOWN
-UNIT02	COFFEE	YES	FTPD	 REBOOT
-
-FTPASSWD:
-Можно посмотреть в C:\MTCP\SETUP.TXT
-
-
