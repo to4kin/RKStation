@@ -1,1 +1,14 @@
+# mTCP FTPSrv user/password sample file
+#
+# User file format
+#
+# user password sandboxdir uploaddir permissions
+#
+# Commands with permissions: dele, mkd, rmd, rnfr, stor, appe, stou
+# "all" is an alias for everything
+#
+# DOS paths are in /drive_X/path form where X is the drive letter.
+# For example, e:/ftpdata is written as /drive_e/ftpdata .
+#
+
 anonymous	[email]	/drive_c/temp	[any]	stor stou
