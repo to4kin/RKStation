@@ -37,9 +37,9 @@ Remote maintenance R-Keeper for DOS
 =========
 1.	Поместить START.BAT и PARAMS.BAT в корень диска C:\
 2.	Прописать в AUTOEXEC.BAT запуск скрипта START.BAT. Прописать TimeZone: TZ=UTC-4
-3.	Установить и настроить MTCP и BASIC Linux (либо любой другой Linux, тогда необходимо поменять параметры запуска в переменной %STLINUX%)
+3.	Установить и настроить MTCP (http://www.brutman.com/mTCP/) и BASIC Linux (либо любой другой Linux, тогда необходимо поменять параметры запуска в переменной %STLINUX%)
 4.	Поместить UNZIP32.EXE, CRC32.EXE, GHOST.EXE, REALDATE.EXE, TIMENOW.EXE, FAM.EXE, PIPESET.EXE, TR.EXE, FDAPM.EXE в папку C:\UTILS (Либо в любую другую папку из окружения PATH)
-5.	Настроить переменные в файле PARAMS.BAT
+5.	Настроить переменные в файле PARAMS.BAT в соответствии с Вашей системой
 6.	Подготовить %BUNDLE%.zip содержащий DBUPDATE.BAT, FTPD.BAT, GHOST.BAT, GO.BAT, MTCP.BAT, RKUPDATE.BAT, CFILE, FTPASSWD
 7.	Подготовить %CRC32%.zip содержащий файлы %BUNDLE%.c32, %RKUPDF%.c32 и %RKTYPE%.c32 с CRC32 соответствующих ZIP архивов
 8.	Поместить %BUNDLE%.zip, %RKUPDF%.zip, %RKTYPE%.zip и %CRC32%.zip на %SERVER%
