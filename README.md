@@ -36,10 +36,23 @@ Remote maintenance R-Keeper for DOS
 Установка
 =========
 1.	Поместить START.BAT и PARAMS.BAT в корень диска C:\
-2.	Прописать в AUTOEXEC.BAT запуск скрипта
-3.	Установить и настроить MTCP и BASIC Linux (либо любйо другой Linux, тогда необходимо поменять параметры запуска %STLINUX%)
-4.	Поместить UNZIP32.EXE, CRC32.EXE, GHOST.EXE, REALDATE.EXE, TIMENOW.EXE, FAM.EXE, PIPESET.EXE, TR.EXE, FDAPM.EXE в папку C:\UTILS
+2.	Прописать в AUTOEXEC.BAT запуск скрипта START.BAT. Прописать TimeZone: TZ=UTC-4
+3.	Установить и настроить MTCP и BASIC Linux (либо любой другой Linux, тогда необходимо поменять параметры запуска в переменной %STLINUX%)
+4.	Поместить UNZIP32.EXE, CRC32.EXE, GHOST.EXE, REALDATE.EXE, TIMENOW.EXE, FAM.EXE, PIPESET.EXE, TR.EXE, FDAPM.EXE в папку C:\UTILS (Либо в любую другую папку из окружения PATH)
 5.	Настроить переменные в файле PARAMS.BAT
-6.	Подготовить %BUNDLE%.zip содержащий DBUPDATE.BAT, FTPD.BAT, GHOST.BAT, GO.BAT, MTCP.BAT, RKUPDATE.BAT, cfile, ftpasswd
-7.	Подготовить %CRC32% содержащий файлы %BUNDLE%.c32, %RKUPDF%.c32 и %RKTYPE%.c32 с CRC32 соответствующих ZIP архивов
-8.	Поместить %BUNDLE%.zip, %RKUPDF%.zip, %RKTYPE%.zip и %CRC32% на %SERVER%
+6.	Подготовить %BUNDLE%.zip содержащий DBUPDATE.BAT, FTPD.BAT, GHOST.BAT, GO.BAT, MTCP.BAT, RKUPDATE.BAT, CFILE, FTPASSWD
+7.	Подготовить %CRC32%.zip содержащий файлы %BUNDLE%.c32, %RKUPDF%.c32 и %RKTYPE%.c32 с CRC32 соответствующих ZIP архивов
+8.	Поместить %BUNDLE%.zip, %RKUPDF%.zip, %RKTYPE%.zip и %CRC32%.zip на %SERVER%
+
+Файлы
+=====
+START.BAT - Стартовый скрипт. Помещается на кассу и организует загрузку %BUNDLE%.zip и %CRC32%.zip с сервера. После удачной загрузки и распаковки файлов запускает скрипт из переменной %GO%
+PARAMS.BAT - Скрипт с параметрами для станции. ОБЯЗАТЕЛЬНО исправить переменные перед запуском
+GO.BAT - Стартовый скрипт получаемый с сервера. Запускает все остальные скрипты при необходимости. Легко редактируется, т.к. загружается с сервера
+DBUPDATE.BAT - Скрипт для обновления базы R-Keeper
+FTPD.BAT - Скрипт стартует FTP Server
+GHOST.BAT - Скрипт запускает GHOST.EXE в качестве параметра передается модифицированный GHOST.SCR, в котором вместо UNIT подставляется переменная %HOSTNAME%-DATETIME (DATETIME в формате "DDMMYY-hhmm")
+MTCP.BAT - Скрипт обновляет время на кассе, синхронизируя его с %POOLSITE% и отправляет информацию о старте станции на %SYSLOG% сервер на порт %SYSLOGP%
+RKUPDATE.BAT - Скрипт обновляющий RKCLIENT. Скрипт берет из CFILE параметр TYPE и загружает с сервера архив %TYPE%.zip. После чего производит архивирование текущий директории RKCLIENT в папку %BACKUPDIR%\DATETIME (DATETIME в формате "DDMMhhmm"). После чего распаковывает новый RKCLIENT и в зависимости от станции (официантская или кассовая) копирует необходимые файлы из папки SERVER. Далее он восстанавливает исходные RKEEPER6.INI, LOCAL.DB, SYSTEM.DB и папку FORMS
+CFILE - Конфигурационный файл, содержащий в себе настройки для каждого юнита. Первый параметр UNIT должен быть равен параметру HOSTNAME в скрипте PARAMS.BAT соответствующей станции. При использовании параметра RK6 запускается RKEEPER, а следовательно использование 5го параметра не обязательно
+FTPASSWD - Содержит список пользователей с паролями, которым разрешен доступ по FTP при запущенном FTP сервере. Данный файл автоматически копируется в папку MTCP, где располагается FTPSRV.EXE
