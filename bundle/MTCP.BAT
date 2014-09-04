@@ -1,17 +1,17 @@
 @ECHO OFF
 
-ECHO Start mtcp.bat...
+REM -----------------------------
+SET POOLSITE=ru.pool.ntp.org
+SET SYSLOG=syslog.vpn
+SET SYSLOGP=514
+REM -----------------------------
 
-REM --------Set source--------------
-SET LOGFILE=%LOGDIR%\mtcp.log
-REM --------------------------------
-
-ECHO ==========================Ag Group RK6 MTCP Utility========================== >> %LOGFILE%
-timenow >> %LOGFILE%
+ECHO ==========================Ag Group RK6 MTCP Utility=============================>> %LOGFILE%
+TIMENOW >> %LOGFILE%
 
 :DHCP
 ECHO Update DHCP lease >> %LOGFILE%
-dhcp
+DHCP
 IF %ERRORLEVEL% == 0 GOTO DHCPOK
 ECHO START DHCP: ERROR >> %LOGFILE%
 GOTO END
@@ -19,7 +19,7 @@ GOTO END
 :DHCPOK
 ECHO START DHCP: OK >> %LOGFILE%
 ECHO Update DATETIME >> %LOGFILE%
-sntp -set %POOLSITE%
+SNTP -set %POOLSITE%
 IF %ERRORLEVEL% == 0 GOTO SNTPOK
 
 ECHO START SNTP: ERROR >> %LOGFILE%
@@ -30,7 +30,7 @@ ECHO START SNTP: OK >> %LOGFILE%
 
 :STATUS
 STRINGS MEM=MEMFREE
-echo %HOSTNAME% mtcp[0]: %Day%/%Month%/%Year% %Hour24%:%Minute%:%Second% %OS% %VER% FreeMem %MEM% RKeeper6 loading | NC -target %SYSLOG% 514
+echo %HOSTNAME% mtcp[0]: %Day%/%Month%/%Year% %Hour24%:%Minute%:%Second% %OS% %VER% FreeMem %MEM% RKeeper6 loading | NC -target %SYSLOG% %SYSLOGP%
 IF %ERRORLEVEL% == 0 GOTO STATUSOK
 
 ECHO SEND STATUS TO %SYSLOG%: ERROR >> %LOGFILE%
@@ -40,13 +40,6 @@ GOTO END
 ECHO SEND STATUS TO %SYSLOG%: OK >> %LOGFILE%
 
 :END
-timenow >> %LOGFILE%
-ECHO ===============================MTCP COMPLETED=============================== >> %LOGFILE%
+TIMENOW >> %LOGFILE%
+ECHO ===============================MTCP COMPLETED===================================>> %LOGFILE%
 ECHO.
-
-REM --------UnSet source--------------
-SET MEM=
-SET POOLSITE=
-SET SYSLOG=
-SET LOGFILE=
-REM ----------------------------------

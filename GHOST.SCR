@@ -1,0 +1,6 @@
+-clone,mode=create,src=1,dst=x:\gho\$$$.gho
+-sure
+-IB
+-Z9
+-NOUSB
+-Pwd=vvgio9it

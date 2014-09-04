@@ -5,50 +5,54 @@ IF EXIST %LOGDIR%\NUL GOTO LOGEXIST
 MKDIR %LOGDIR%
 
 :LOGEXIST
-ECHO ==========================Ag Group RK6 START Utility========================== >> %MAINLOG%
-timenow >> %MAINLOG%
+ECHO ==========================Ag Group RK6 START Utility============================>> %MAINLOG%
+TIMENOW >> %MAINLOG%
 
-ECHO Checking %UNZIPDIR%... >> %LOGFILE%
+ECHO Checking %UNZIPDIR%... >> %MAINLOG%
 IF EXIST %UNZIPDIR%\NUL GOTO UZDEXIST
-ECHO Creating %UNZIPDIR%... >> %LOGFILE%
+ECHO Creating %UNZIPDIR%... >> %MAINLOG%
 MKDIR %UNZIPDIR%
 
 :UZDEXIST
+ECHO %UNZIPDIR% EXIST... >> %MAINLOG%
 ECHO Update DHCP lease >> %MAINLOG%
-dhcp
+DHCP
 IF %ERRORLEVEL% == 0 GOTO DHCPOK
 ECHO START DHCP: ERROR >> %MAINLOG%
 GOTO END
 
 :DHCPOK
 ECHO START DHCP: OK >> %MAINLOG%
-ECHO Getting %CRC32% from %SERVER%... >> %MAINLOG%
-htget %SERVER%/%CRC32% > %UNZIPDIR%\%CRC32%
+ECHO Getting %CRC32%.zip from %SERVER%... >> %MAINLOG%
+HTGET %SERVER%/%CRC32%.zip > %UNZIPDIR%\%CRC32%.zip
 IF %ERRORLEVEL% == 21 GOTO CRCGETOK
-ECHO Cannot get %CRC32% from %SERVER%... >> %MAINLOG%
+ECHO Cannot get %CRC32%.zip from %SERVER%... >> %MAINLOG%
 GOTO END
 
 :CRCGETOK
-ECHO Unzip %CRC32% to %CRCDIR%... >> %MAINLOG%
-UNZIP32 -jo %UNZIPDIR%\%CRC32% -d %CRCDIR%
+ECHO Getting successfully %CRC32%.zip from %SERVER%... >> %MAINLOG%
+ECHO Unzip %CRC32%.zip to %CRCDIR%... >> %MAINLOG%
+UNZIP32 -jo %UNZIPDIR%\%CRC32%.zip -d %CRCDIR%
 IF %ERRORLEVEL% == 0 GOTO CRCUNZOK
-ECHO Cannot unzip %UNZIPDIR%\%CRC32% to %CRCDIR%... >> %MAINLOG%
+ECHO Cannot unzip %UNZIPDIR%\%CRC32%.zip to %CRCDIR%... >> %MAINLOG%
 GOTO END
 
 :CRCUNZOK
+ECHO Unzip successfully %CRC32%.zip to %CRCDIR%... >> %MAINLOG%
 ECHO Compare %BUNDLEDIR%\%BUNDLE%.zip CRC32... >> %MAINLOG%
 TYPE %CRCDIR%\%BUNDLE%.c32 | TR a-f A-F | PIPESET NEWCRC
 CRC32 %BUNDLEDIR%\%BUNDLE%.zip | FAM \F1 | TR a-f A-F | PIPESET OLDCRC
 IF "%NEWCRC%" == "%OLDCRC%" GOTO BDCRCOK
 
 ECHO Getting %BUNDLE%.zip from %SERVER%... >> %MAINLOG%
-htget %SERVER%/%BUNDLE%.zip > %BUNDLEDIR%\%BUNDLE%.zip
+HTGET %SERVER%/%BUNDLE%.zip > %BUNDLEDIR%\%BUNDLE%.zip
 IF %ERRORLEVEL% == 21 GOTO BDGETOK
 ECHO Cannot get %BUNDLE%.zip... >> %MAINLOG%
 IF EXIST %BUNDLEDIR%\%BUNDLE%.zip GOTO BDCRCOK
 GOTO END
 
 :BDGETOK
+ECHO Getting successfully %BUNDLE%.zip from %SERVER%... >> %MAINLOG%
 ECHO Compare %BUNDLEDIR%\%BUNDLE%.zip CRC32... >> %MAINLOG%
 TYPE %CRCDIR%\%BUNDLE%.c32 | TR a-f A-F | PIPESET NEWCRC
 CRC32 %BUNDLEDIR%\%BUNDLE%.zip | FAM \F1 | TR a-f A-F | PIPESET OLDCRC
@@ -58,6 +62,7 @@ ECHO CRC32 Verification faild: %NEWCRC% ne %OLDCRC% >> %MAINLOG%
 GOTO END
 
 :BDCRCOK
+ECHO CRC32 Verification successfully: %NEWCRC% eq %OLDCRC% >> %MAINLOG%
 ECHO Unzip %BUNDLEDIR%\%BUNDLE%.zip to %UNZIPDIR%
 UNZIP32 -jo %BUNDLEDIR%\%BUNDLE%.zip -d %UNZIPDIR%
 IF %ERRORLEVEL% == 0 GOTO UNZIPOK
@@ -66,6 +71,7 @@ ECHO Cannot unzip %BUNDLEDIR%\%BUNDLE%.zip to %UNZIPDIR%... >> %MAINLOG%
 GOTO END
 
 :UNZIPOK
+ECHO Unzip successfully %BUNDLEDIR%\%BUNDLE%.zip to %UNZIPDIR%
 ECHO Start %GO%... >> %MAINLOG%
 CALL %GO%
 
@@ -73,6 +79,6 @@ CALL %GO%
 ECHO Deleting directory %UNZIPDIR% and subdirectories... >> %MAINLOG%
 DELDIR %UNZIPDIR%
 RD %UNZIPDIR%
-timenow >> %MAINLOG%
-ECHO ===============================START COMPLETED=============================== >> %MAINLOG%
+TIMENOW >> %MAINLOG%
+ECHO ===============================START COMPLETED==================================>> %MAINLOG%
 ECHO.

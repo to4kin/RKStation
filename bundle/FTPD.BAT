@@ -1,29 +1,29 @@
 @ECHO OFF
 
-ECHO Start ftpd.bat..
+ECHO ==========================Ag Group RK6 FTPD Utility=============================>> %LOGFILE%
+TIMENOW >> %LOGFILE%
 
-ECHO ==========================Ag Group RK6 FTPD Utility========================== >> %LOGFILE%
-timenow >> %LOGFILE%
+ECHO Starting ftp server... >> %LOGFILE%
+ECHO Copy FTPASSWD to C:\MTCP... >> %LOGFILE%
+COPY %UNZIPDIR%\FTPASSWD C:\MTCP
+IF %ERRORLEVEL% == 25 GOTO FTPSTART
+ECHO Copy FTPASSWD: ERROR >> %LOGFILE%
+GOTO END
 
+:FTPSTART
+ECHO Copy FTPASSWD: OK >> %LOGFILE%
 ECHO Update DHCP lease >> %LOGFILE%
-dhcp
+DHCP
 IF %ERRORLEVEL% == 0 GOTO DHCPOK
 ECHO START DHCP: ERROR >> %LOGFILE%
 GOTO END
 
 :DHCPOK
-ECHO Starting ftp server... >> %LOGFILE%
-ECHO Copy ftpasswd to C:\MTCP... >> %LOGFILE%
-COPY %UNZIPDIR%\ftpasswd C:\MTCP
-IF %ERRORLEVEL% == 0 GOTO FTPSTART
-ECHO Copy ftpasswd: ERROR >> %LOGFILE%
-GOTO END
-
-:FTPSTART
+ECHO START DHCP: OK >> %LOGFILE%
 ECHO START FTPSRV >> %LOGFILE%
-ftpsrv
+FTPSRV
 
 :END
-timenow >> %LOGFILE%
-ECHO ===============================FTPD COMPLETED=============================== >> %LOGFILE%
+TIMENOW >> %LOGFILE%
+ECHO ===============================FTPD COMPLETED===================================>> %LOGFILE%
 ECHO.

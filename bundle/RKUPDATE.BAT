@@ -1,43 +1,40 @@
 @ECHO OFF
 
-ECHO Start rkupdate.bat..
+ECHO ==========================Ag Group RK6 RKUpdate Utility=========================>> %LOGFILE%
+TIMENOW >> %LOGFILE%
 
-REM --------Set source--------------
-SET UPDDIR=%UNZIPDIR%\RKEEPER
-REM --------------------------------
-
-ECHO ==========================Ag Group RK6 RKUpdate Utility========================== >> %LOGFILE%
-timenow >> %LOGFILE%
+ECHO Compare %BUNDLEDIR%\%RKUPDF%.zip CRC32... >> %LOGFILE%
+TYPE %CRCDIR%\%RKUPDF%.c32 | TR a-f A-F | PIPESET NEWCRC
+CRC32 %BUNDLEDIR%\%RKUPDF%.zip | FAM \F1 | TR a-f A-F | PIPESET OLDCRC
+IF "%NEWCRC%" == "%OLDCRC%" GOTO UPCRCOK
 
 ECHO Update DHCP lease >> %LOGFILE%
-dhcp
+DHCP
 IF %ERRORLEVEL% == 0 GOTO DHCPOK
 ECHO START DHCP: ERROR >> %LOGFILE%
 GOTO END
 
 :DHCPOK
-ECHO Compare %BUNDLEDIR%\%RKUPDF%.zip CRC32... >> %MAINLOG%
-TYPE %CRCDIR%\%RKUPDF%.c32 | TR a-f A-F | PIPESET NEWCRC
-CRC32 %BUNDLEDIR%\%RKUPDF%.zip | FAM \F1 | TR a-f A-F | PIPESET OLDCRC
-IF "%NEWCRC%" == "%OLDCRC%" GOTO UPCRCOK
-
+ECHO START DHCP: OK >> %LOGFILE%
 ECHO Getting %RKUPDF%.zip from %SERVER%... >> %LOGFILE%
-htget %SERVER%/%RKUPDF%.zip > %BUNDLEDIR%\%RKUPDF%.zip
+HTGET %SERVER%/%RKUPDF%.zip > %BUNDLEDIR%\%RKUPDF%.zip
 IF %ERRORLEVEL% == 21 GOTO UPGETOK
 
 ECHO Cannot get %RKUPDF%.zip... >> %LOGFILE%
 GOTO END
 
 :UPGETOK
-ECHO Compare %BUNDLEDIR%\%RKUPDF%.zip CRC32... >> %MAINLOG%
+ECHO Getting successfully %RKUPDF%.zip from %SERVER%... >> %LOGFILE%
+ECHO Compare %BUNDLEDIR%\%RKUPDF%.zip CRC32... >> %LOGFILE%
 TYPE %CRCDIR%\%RKUPDF%.c32 | TR a-f A-F | PIPESET NEWCRC
 CRC32 %BUNDLEDIR%\%RKUPDF%.zip | FAM \F1 | TR a-f A-F | PIPESET OLDCRC
 IF "%NEWCRC%" == "%OLDCRC%" GOTO UPCRCOK
 
-ECHO CRC32 Verification faild: %NEWCRC% ne %OLDCRC% >> %MAINLOG%
+ECHO CRC32 Verification faild: %NEWCRC% ne %OLDCRC% >> %LOGFILE%
 GOTO END
 
 :UPCRCOK
+ECHO Compare successfully %BUNDLEDIR%\%RKUPDF%.zip CRC32... >> %LOGFILE%
 ECHO Unzip %BUNDLEDIR%\%RKUPDF%.zip to %UPDDIR%
 UNZIP32 -o %BUNDLEDIR%\%RKUPDF%.zip -d %UPDDIR%
 IF %ERRORLEVEL% == 0 GOTO BDUZOK
@@ -46,13 +43,16 @@ ECHO Cannot unzip %BUNDLEDIR%\%RKUPDF%.zip to %UPDDIR%... >> %LOGFILE%
 GOTO END
 
 :BDUZOK
+ECHO Unzip successfully %BUNDLEDIR%\%RKUPDF%.zip to %UPDDIR%
 ECHO Checking %BACKUPDIR%... >> %LOGFILE%
 IF EXIST %BACKUPDIR%\NUL GOTO BCKDEX
 ECHO Creating %BACKUPDIR%... >> %LOGFILE%
 MKDIR %BACKUPDIR%
 
 :BCKDEX
+ECHO %BACKUPDIR% EXIST... >> %LOGFILE%
 REALDATE /f="DDMMhhmm" | PIPESET BCNAME
+SET BCNAME=%BACKUPDIR%\%BCNAME%
 ECHO Creating %BCNAME%... >> %LOGFILE%
 MKDIR %BCNAME%
 
@@ -61,6 +61,7 @@ ECHO %BCNAME% Not Exist >> %LOGFILE%
 GOTO END
 
 :CBCKDEX
+ECHO %BCNAME% EXIST >> %LOGFILE%
 ECHO Moving %RKDIR% to %BCNAME%... >> %LOGFILE%
 MOVE /S %RKDIR% %BCNAME%
 ECHO Deleting directory %RKDIR% and subdirectories... >> %LOGFILE%
@@ -106,15 +107,10 @@ COPY %BCNAME%\DATABASE\system.db %RKDIR%\DATABASE
 COPY %BCNAME%\local.db %RKDIR%
 COPY %BCNAME%\rkeeper6.ini %RKDIR%
 
-ECHO Deleting directory %UPDDIR% and subdirectories... >> %MAINLOG%
+ECHO Deleting directory %UPDDIR% and subdirectories... >> %LOGFILE%
 DELDIR %UPDDIR%
 RD %UPDDIR%
 
-timenow >> %LOGFILE%
-ECHO ===============================RKUPDATE COMPLETED=============================== >> %LOGFILE%
+TIMENOW >> %LOGFILE%
+ECHO ===============================RKUPDATE COMPLETED===============================>> %LOGFILE%
 ECHO.
-
-REM --------Set source--------------
-SET RKUPDF=
-SET UPDDIR=
-REM --------------------------------
