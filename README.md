@@ -29,7 +29,7 @@ Remote maintenance R-Keeper for DOS
 Запускает полноценный FTP Сервер на кассе.
 
 #Создание резервной копии всего диска
-Используя утилиту Norton GHost создает на внешнем диске образ текущего диска. В качестве параметров используется файл GHOST.SCR, в котором путь dst=x:\gho\$$$.gho заменяется на dst=x:\gho\%HOSTNAME%-DATETIME.gho (DATETIME в формате "DDMMYY-hhmm")
+Используя утилиту Norton GHost создает на внешнем диске образ текущего диска. В качестве параметров используется файл GHOST.SCR, в котором путь dst=x:\gho\$$$.gho заменяется на dst=x:\gho\%DATETIME%.gho (DATETIME в формате "DDMMhhmm")
 
 #Запуск Linux под Dos
 Запускает BOOT.BAT из C:\Linux, соответственно можно использовать для запуска любой своей программы
@@ -70,7 +70,7 @@ Remote maintenance R-Keeper for DOS
 Скрипт стартует FTP Server
 
 #GHOST.BAT
-Скрипт запускает GHOST.EXE в качестве параметра передается модифицированный GHOST.SCR, в котором вместо UNIT подставляется переменная %HOSTNAME%-DATETIME (DATETIME в формате "DDMMYY-hhmm")
+Скрипт запускает GHOST.EXE в качестве параметра передается модифицированный GHOST.SCR, в котором вместо UNIT подставляется переменная %DATETIME% (DATETIME в формате "DDMMhhmm")
 
 #MTCP.BAT
 Скрипт обновляет время на кассе, синхронизируя его с %POOLSITE% и отправляет информацию о старте станции на %SYSLOG% сервер на порт %SYSLOGP%
@@ -78,7 +78,7 @@ Remote maintenance R-Keeper for DOS
 #RKUPDATE.BAT
 Скрипт обновляющий RKCLIENT. 
 1. Скрипт берет из CFILE параметр TYPE и загружает с сервера архив %TYPE%.zip. 
-2. Производит архивирование текущий директории RKCLIENT в папку %BACKUPDIR%\DATETIME (DATETIME в формате "DDMMhhmm").
+2. Производит архивирование текущий директории RKCLIENT в папку %BACKUPDIR%\%DATETIME% (DATETIME в формате "DDMMhhmm").
 3. Распаковывает новый RKCLIENT и в зависимости от станции (официантская или кассовая) копирует необходимые файлы из папки SERVER.
 4. Восстанавливает исходные RKEEPER6.INI, LOCAL.DB, SYSTEM.DB и папку FORMS
 
