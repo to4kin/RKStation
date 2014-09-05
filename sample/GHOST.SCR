@@ -3,4 +3,4 @@
 -IB
 -Z9
 -NOUSB
--Pwd=vvgio9it
+-Pwd=%PASSWORD%
