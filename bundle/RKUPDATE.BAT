@@ -71,9 +71,15 @@ IF NOT EXIST %BCNAME%\OLDRES\NUL GOTO WAITER
 ECHO Server station... >> %LOGFILE% 
 ECHO Copying servers dll... >> %LOGFILE%
 COPY %UPDDIR%\SERVER\*.* C:\RKCLIENT
-ECHO Creating OLDRES and RESULTS directories... >> %LOGFILE%
+ECHO Creating DATABASE, OLDRES and RESULTS directories... >> %LOGFILE%
+MKDIR %RKDIR%\DATABASE
 MKDIR %RKDIR%\RESULTS
 MKDIR %RKDIR%\OLDRES
+ECHO Copying DATABASE files to %RKDIR%\DATABASE directory... >> %LOGFILE%
+COPY %UPDDIR%\DATABASE\*.* %RKDIR%\DATABASE
+ECHO Copying system.db and local.db... >> %LOGFILE%
+COPY %BCNAME%\DATABASE\system.db %RKDIR%\DATABASE
+COPY %BCNAME%\local.db %RKDIR%
 GOTO SERVER
 
 :WAITER
@@ -81,7 +87,6 @@ ECHO Waiter station... >> %LOGFILE%
 
 :SERVER
 ECHO Creating required directories in %RKDIR%... >> %LOGFILE%
-MKDIR %RKDIR%\DATABASE
 MKDIR %RKDIR%\EXTENS
 MKDIR %RKDIR%\FONTS
 MKDIR %RKDIR%\FORMS
@@ -89,11 +94,11 @@ MKDIR %RKDIR%\TARIF
 
 ECHO Copying files to %RKDIR% directory... >> %LOGFILE%
 COPY %UPDDIR%\*.* %RKDIR%\
-COPY %UPDDIR%\DATABASE\*.* %RKDIR%\DATABASE
 COPY %UPDDIR%\EXTENS\*.* %RKDIR%\EXTENS
 COPY %UPDDIR%\FONTS\*.* %RKDIR%\FONTS
-COPY %BCNAME%\FORMS\*.* %RKDIR%\FORMS
 COPY %UPDDIR%\TARIF\*.* %RKDIR%\TARIF
+ECHO Restore FORMS directory... >> %LOGFILE%
+COPY %BCNAME%\FORMS\*.* %RKDIR%\FORMS
 
 ECHO Checking required fiscsup.dll... >> %LOGFILE%
 IF EXIST %BCNAME%\fiscsup.dll GOTO FISCSUP 
@@ -102,9 +107,7 @@ ECHO Deleting fiscsup.dll... >> %LOGFILE%
 DEL %RKDIR%\fiscsup.dll
 
 :FISCSUP 
-ECHO Copying system.db local.db rkeeper.ini... >> %LOGFILE%
-COPY %BCNAME%\DATABASE\system.db %RKDIR%\DATABASE
-COPY %BCNAME%\local.db %RKDIR%
+ECHO Copying rkeeper.ini... >> %LOGFILE%
 COPY %BCNAME%\rkeeper6.ini %RKDIR%
 
 ECHO Deleting directory %UPDDIR% and subdirectories... >> %LOGFILE%
