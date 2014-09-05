@@ -1,0 +1,9 @@
+dos=high
+shell=c:\drdos\command.com c:\drdos /E:1536 /P /F
+device=c:\qemm\qemm386.sys BOOTENABLE:N FRAME=B000 RAM X=C000-CF00 X=E500-FFFF
+device=c:\qemm\loadhi.sys /r:1 c:\net\ifshlp.sys
+devicehigh=c:\util\rdisk.com /S100
+
+files=50
+buffers=20
+lastdrive=z
