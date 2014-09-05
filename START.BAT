@@ -48,7 +48,6 @@ ECHO Getting %BUNDLE%.zip from %SERVER%... >> %MAINLOG%
 HTGET %SERVER%/%BUNDLE%.zip > %BUNDLEDIR%\%BUNDLE%.zip
 IF %ERRORLEVEL% == 21 GOTO BDGETOK
 ECHO Cannot get %BUNDLE%.zip... >> %MAINLOG%
-IF EXIST %BUNDLEDIR%\%BUNDLE%.zip GOTO BDCRCOK
 GOTO END
 
 :BDGETOK
@@ -76,10 +75,10 @@ ECHO Start %GO%... >> %MAINLOG%
 CALL %GO%
 
 :END
-ECHO Deleting directory %UNZIPDIR% and subdirectories... >> %MAINLOG%
-C:
-DELDIR %UNZIPDIR%
-RD %UNZIPDIR%
+REM ECHO Deleting directory %UNZIPDIR% and subdirectories... >> %MAINLOG%
+REM CD %TMPDIR%\
+REM DELDIR %UNZIPDIR%
+REM RD %UNZIPDIR%
 TIMENOW >> %MAINLOG%
 ECHO ===============================START COMPLETED==================================>> %MAINLOG%
 ECHO.
