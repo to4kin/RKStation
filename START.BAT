@@ -77,6 +77,7 @@ CALL %GO%
 
 :END
 ECHO Deleting directory %UNZIPDIR% and subdirectories... >> %MAINLOG%
+C:
 DELDIR %UNZIPDIR%
 RD %UNZIPDIR%
 TIMENOW >> %MAINLOG%
