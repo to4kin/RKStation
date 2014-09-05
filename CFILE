@@ -2,7 +2,7 @@
 # FORMAT: unit	type	dbupdate	state	action
 # TYPE: COFFEE | PUB | MAGAZ
 # DBUPDATE: YES | NO
-# STATE: RK6 | FTPD | UPDATE | GHOST | LINUX
+# STATE: RK6 | NORK6 | FTPD | UPDATE | GHOST | LINUX
 # ACTION: CONTINUE | REBOOT | SHUTDOWN
 # default action CONTINUE
 
