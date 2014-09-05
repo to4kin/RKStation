@@ -110,6 +110,9 @@ COPY %BCNAME%\rkeeper6.ini %RKDIR%
 ECHO Deleting directory %UPDDIR% and subdirectories... >> %LOGFILE%
 DELDIR %UPDDIR%
 RD %UPDDIR%
+ECHO Deleting log files and errors.txt in %RKDIR%... >> %LOGFILE%
+DEL %RKDIR%\*.log
+DEL %RKDIR%\errors.txt
 
 TIMENOW >> %LOGFILE%
 ECHO ===============================RKUPDATE COMPLETED===============================>> %LOGFILE%
