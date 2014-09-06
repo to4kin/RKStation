@@ -1,7 +1,6 @@
 @ECHO OFF
 
 REM -----------------------------
-SET NORK6=NO
 SET RKUPDF=update
 SET FTPDLOG=%LOGDIR%\FTPD.LOG
 SET MTCPLOG=%LOGDIR%\MTCP.LOG
