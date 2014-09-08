@@ -13,7 +13,7 @@ mode com4: 9600,n,8,1
 
 :chkdsk c: /F
 
-net init
+loadhi /r:1 /lo net init
 loadhi /r:1 /lo share
 loadhi /r:1 /lo netbind
 loadhi /r:1 /lo umb
@@ -35,7 +35,7 @@ utch627
 
 call start.bat
 
-cd \rkclient
+cd c:\rkclient
 dmove buf rkclient
 :cor
 IF EXIST x:\rkeeper\upd\nork6 SET NORK6=YES
