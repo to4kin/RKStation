@@ -14,7 +14,6 @@ SET BUNDLEDIR=C:\BUNDLE
 
 SET DBDIR=%RKDIR%\EXTDB
 SET UNZIPDIR=%TMPDIR%\UNZIP
-SET CRCDIR=%UNZIPDIR%\CRC32
 SET UPDDIR=%UNZIPDIR%\RKEEPER
 REM -----/DIR-CONFIGURE----------
 REM -----------------------------
@@ -26,5 +25,5 @@ SET STLINUX=BOOT
 REM -----------------------------
 REM -----FILES-ON-SERVER---------
 SET BUNDLE=bundle
-SET CRC32=crc32
+SET MD5=list.md5
 REM -----/FILES-ON-SERVER--------
