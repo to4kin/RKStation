@@ -1,5 +1,5 @@
-RKStation
-=========
+RKStation v1.10.47
+==================
 
 Remote maintenance R-Keeper v6 for DOS
 
@@ -44,13 +44,14 @@ Remote maintenance R-Keeper v6 for DOS
   6.	MD5.EXE (http://thestarman.pcministry.com/DOS/MD5progs.html#3L)
   7.	GHOST.EXE (http://ru.norton.com/)
   8.	REALDATE.COM (http://www.huweb.hu/maques/realdate.htm)
-  9.	TIMENOW.EXE
-  10.	FAM.COM, PIPESET.COM, TR.COM (http://www.bttr-software.de/products/jhoffmann/dosutils.zip)
-  11.	FDAPM.EXE (http://www.freedos.org/software/?prog=fdapm) 
-12.	Настроить переменные в файле PARAMS.BAT в соответствии с Вашей системой
-13.	Подготовить %BUNDLE%.zip содержащий DBUPDATE.BAT, FTPD.BAT, GHOST.BAT, GO.BAT, MTCP.BAT, RKUPDATE.BAT, CFILE, FTPASSWD
-14.	Подготовить файл %MD5%, пример можно посмотреть в папке SAMPLE
-15.	Поместить %BUNDLE%.zip, %RKUPDF%.zip, %RKTYPE%.zip и %MD5% на %SERVER%
+  9.	UNIX2DOS.EXE (http://www.efgh.com/software/unix2dos.htm)
+  10.	TIMENOW.EXE
+  11.	FAM.COM, PIPESET.COM, TR.COM (http://www.bttr-software.de/products/jhoffmann/dosutils.zip)
+  12.	FDAPM.EXE (http://www.freedos.org/software/?prog=fdapm) 
+13.	Настроить переменные в файле PARAMS.BAT в соответствии с Вашей системой
+14.	Подготовить %BUNDLE%.zip содержащий DBUPDATE.BAT, FTPD.BAT, GHOST.BAT, GO.BAT, MTCP.BAT, RKUPDATE.BAT, CFILE, FTPASSWD
+15.	Подготовить файл %MD5%, пример можно посмотреть в папке SAMPLE
+16.	Поместить %BUNDLE%.zip, %RKUPDF%.zip, %RKTYPE%.zip и %MD5% на %SERVER%
 
 Файлы
 =====
