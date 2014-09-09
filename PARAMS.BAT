@@ -6,7 +6,7 @@ SET SERVER=http://ns2.vpn/rkeeper
 REM -----------------------------
 REM -----DIR-CONFIGURE-----------
 SET RKDIR=C:\RKCLIENT
-SET TMPDIR=D:
+SET TMPDIR=R:
 SET LOGDIR=C:\LOGS
 SET LINUXDIR=C:\LINUX
 SET BACKUPDIR=C:\BACKUP

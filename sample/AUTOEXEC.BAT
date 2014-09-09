@@ -1,10 +1,11 @@
 @ECHO OFF
 PROMPT $p$g
-PATH=C:\NET;C:\DRDOS;C:\UTIL;C:\RKCLIENT;C:\VC;C:\;C:\TOUCH;C:\MTCP;C:\QEMM
+PATH=C:\NET;C:\DRDOS;C:\UTIL;C:\RKCLIENT;C:\VC;C:\;C:\TOUCH;C:\MTCP;C:\QEMM;C:\LINUX
 SET TEMP=C:\TEMP
 SET NORK6=NO
 SET TZ=UTC-4
 
+loadhi /r:1 /lo rdisk /:R /S100
 loadhi /r:1 /lo cyrkeyb
 loadhi /r:1 /lo vga#font
 
@@ -35,9 +36,12 @@ utch627
 
 call start.bat
 
+IF NOT EXIST c:\rkclient\NUL GOTO END
 cd c:\rkclient
 dmove buf rkclient
 :cor
 IF EXIST x:\rkeeper\upd\nork6 SET NORK6=YES
 IF "%NORK6%" == "NO" rkeeper6
+
+:END
 vc
