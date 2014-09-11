@@ -30,7 +30,7 @@ ECHO START SNTP: OK >> %LOGFILE%
 
 :STATUS
 STRINGS MEM=MEMFREE
-echo %HOSTNAME% mtcp[0]: %Day%/%Month%/%Year% %Hour24%:%Minute%:%Second% %OS% %VER% FreeMem %MEM% RKeeper6 loading | NC -target %SYSLOG% %SYSLOGP%
+echo %HOSTNAME% mtcp[0]: %Day%/%Month%/%Year% %Hour24%:%Minute%:%Second% %OS% %VER% FreeMem %MEM% RKeeper6 loading version %SVERMAYOR%.%SVERMINOR% | NC -target %SYSLOG% %SYSLOGP%
 IF %ERRORLEVEL% == 0 GOTO STATUSOK
 
 ECHO SEND STATUS TO %SYSLOG%: ERROR >> %LOGFILE%
