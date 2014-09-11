@@ -5,7 +5,7 @@ SET TEMP=C:\TEMP
 SET NORK6=NO
 SET TZ=UTC-4
 
-loadhi /r:1 /lo rdisk /:R /S100
+loadhi /r:1 /lo rdisk /:R /S50
 loadhi /r:1 /lo cyrkeyb
 loadhi /r:1 /lo vga#font
 
