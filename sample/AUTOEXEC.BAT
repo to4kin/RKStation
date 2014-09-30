@@ -18,7 +18,7 @@ loadhi /r:1 /lo net init
 loadhi /r:1 /lo share
 loadhi /r:1 /lo netbind
 loadhi /r:1 /lo umb
-loadhi /r:1 /lo tcptsr
+tcptsr
 loadhi /r:1 /lo tinyrfc
 loadhi /r:1 /lo nmtsr
 loadhi /r:1 /lo emsbfr
@@ -31,7 +31,7 @@ net use * /d
 net use x: \\nas\volume_3 /persistent:no
 :net use x: \\praxidike\rk6_pub
 
-cd \touch
+cd c:\touch
 utch627
 
 call start.bat

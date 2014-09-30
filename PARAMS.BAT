@@ -3,7 +3,7 @@
 REM -----------------------------
 SET HOSTNAME=UNIT07
 SET SVERMAYOR=0
-SET SVERMINOR=11
+SET SVERMINOR=12
 SET SERVER=http://ns2.vpn/rkeeper
 REM -----------------------------
 REM -----DIR-CONFIGURE-----------
