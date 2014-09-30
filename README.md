@@ -1,4 +1,4 @@
-RKStation 0.11
+RKStation 0.12
 ==================
 
 Remote maintenance R-Keeper v6 for DOS
